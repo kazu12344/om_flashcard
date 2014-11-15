@@ -1,0 +1,4 @@
+database:
+    db: om_flashcard
+    user: omf
+    pass: omf:-)
