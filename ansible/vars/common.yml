@@ -1,6 +1,0 @@
----
-    php_ppa: php5-5.6
-    doc_root: /var/www/vhosts/om_flashcard
-    sys_packages: ["vim","git"]
-    dist: precise
-    php_packages: ["php5-xdebug"]
