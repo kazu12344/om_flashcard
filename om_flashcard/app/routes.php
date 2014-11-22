@@ -16,9 +16,11 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('users', function()
-{
-    $users = User::all();
+Route::get('users', 'UsersController@index');
 
-    return View::make('users')->with('users', $users);
-});
+//Route::get('users', function()
+//{
+//    $users = User::all();
+//
+//    return View::make('users')->with('users', $users);
+//});
