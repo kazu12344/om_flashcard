@@ -1,8 +1,10 @@
 @extends('layout')
 
 @section('content')
+
+<div class="container" style="padding: 20px 0">
     <h1>Users List</h1>
-    <table class="table">
+    <table class="table table-striped table-bordered">
     <thead>
     <tr>
         <th>name</th>
@@ -15,12 +17,12 @@
     <tbody>
     <tr>
         <td>{{ $user->name  }}</td>
-        <td>{{ $user->email  }}</td>
-        <td>{{ $user->created_at  }}</td>
-        <td>{{ $user->updated_at  }}</td>
+        <td>{{ $user->email }}</td>
+        <td>{{ $user->created_at }}</td>
+        <td>{{ $user->updated_at }}</td>
     </tr>
     <tbody>
-    @endforeach
+    @endforeach　
     </table>
-
+</div>
 @stop
