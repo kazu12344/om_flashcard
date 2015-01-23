@@ -1,0 +1,134 @@
+﻿# A5:ER FORMAT:09
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=om_flashcard
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSTypeName=Oracle Database
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=NEW_ENTITY5
+LName=users
+Comment=Register users
+TableOption=
+Page=MAIN
+Left=1400
+Top=100
+Field="id","ID","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150120013722
+Position="MAIN",1400,100,357,442
+
+[Entity]
+PName=NEW_ENTITY4
+LName=sentences
+Comment=register sentences
+TableOption=
+Page=MAIN
+Left=900
+Top=600
+Field="id","ID","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="title","title","@VARCHAR(128)","NOT NULL",,"NULL","sentence title",$FFFFFFFF,""
+Field="sentence","sentence","TEXT","NOT NULL",,"NULL","sentence",$FFFFFFFF,""
+Field="deleted_at","deleted_at","@DATETIME",,,"NULL","",$FFFFFFFF,""
+Field="updated_at","updated_at","@DATETIME","NOT NULL",,"NULL","",$FFFFFFFF,""
+Field="created_at","careted_at","@DATETIME","NOT NULL",,"NULL","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150122014042
+Position="MAIN",900,600,368,447
+
+[Entity]
+PName=NEW_ENTITY3
+LName=word_word_group
+Comment=related table for words and word_groups
+TableOption=
+Page=MAIN
+Left=950
+Top=100
+Field="id","ID","@INT","NOT NULL",0,"","ID",$FFFFFFFF,""
+Field="word_id","word_id","@INT","NOT NULL",,"","word_id",$FFFFFFFF,""
+Field="word_group_id","word_group_id","@INT","NOT NULL",,"","word_group_id",$FFFFFFFF,""
+Field="created_at","created_at","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150122014225
+Position="MAIN",950,100,330,428
+
+[Entity]
+PName=NEW_ENTITY2
+LName=word_groups
+Comment=
+TableOption=
+Page=MAIN
+Left=500
+Top=100
+Field="id","ID","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="name","name","@VARCHAR",,,"NULL","group name",$FFFFFFFF,""
+Field="deleted_at","deleted_at","@DATETIME",,,"NULL","",$FFFFFFFF,""
+Field="updated_at","updated_at","@DATETIME","NOT NULL",,"NULL","",$FFFFFFFF,""
+Field="created_at","created_at","@DATETIME","NOT NULL",,"NULL","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150122020150
+Position="MAIN",500,100,344,435
+
+[Entity]
+PName=NEW_ENTITY1
+LName=words
+Comment=regester English word
+TableOption=
+Page=MAIN
+Left=50
+Top=100
+Field="id","ID","@INT","NOT NULL",0,"","ID",$FFFFFFFF,""
+Field="user_id","user_id","@INT","NOT NULL",,"NULL","User_id",$FFFFFFFF,""
+Field="name","name","@VARCHAR(255)","NOT NULL",,"NULL","English word",$FFFFFFFF,""
+Field="mean","mean","@VARCHAR(255)",,,"NULL","mean",$FFFFFFFF,""
+Field="part_of_speech","part_of_speech","TINYINT",,,"NULL","part of speech",$FFFFFFFF,""
+Field="variation","variation","@VARCHAR(128)",,,"NULL","variation",$FFFFFFFF,""
+Field="phonetic_symbol","phonetic_symbol","@VARCHAR(128)",,,"NULL","phonetic_symbol",$FFFFFFFF,""
+Field="image","image","@VARCHAR(255)",,,"NULL","Image path",$FFFFFFFF,""
+Field="created_at","created_at","TIMESTAMP","NOT NULL",,"NULL","",$FFFFFFFF,""
+Field="updated_at","updated_at","TIMESTAMP","NOT NULL",,"NULL","",$FFFFFFFF,""
+Field="deleted_at","deleted_at","TIMESTAMP",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20150122013046
+Position="MAIN",50,100,373,458
