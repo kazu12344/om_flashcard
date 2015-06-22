@@ -1,5 +1,9 @@
 @extends('...layout')
 
+@section('title')
+user index
+@stop
+
 @section('content')
 
 <div class="container" style="padding: 20px 0">

@@ -1,19 +1,25 @@
 @extends('  layout')
 
+@section('title')
+user edit
+@stop
+
 @section('content')
 <div class="container" style="padding: 20px 0">
     <h1>User Edit</h1>
-    {{ Form::open(['url' => 'users/edit', 'class' => 'form-horizontal']) }}
-        <div class="form-group">
+    {{ Form::model($user, ['class' => 'form-horizontal']) }}
+        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
             <label class=" control-label col-sm-2">User Name</label>
             <div class="col-sm-4">
-                {{ Form::text('username', null, ['class' => 'form-control'] ) }}
+                {{ Form::text('name', null, ['class' => 'form-control'] ) }}
+                {{ $errors->first('name', '<span class="control-label">:message</span>') }}
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
             <label class=" control-label col-sm-2">Email</label>
             <div class="col-sm-4">
                 {{ Form::text('email', null, ['class' => 'form-control'] ) }}
+                {{ $errors->first('email', '<span class="control-label">:message</span>') }}
             </div>
         </div>
         <div class="form-group">

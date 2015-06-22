@@ -24,3 +24,4 @@ Route::controller('users', 'UserController');
 //
 //    return View::make('users')->with('users', $users);
 //});
+

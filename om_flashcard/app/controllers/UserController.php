@@ -45,11 +45,18 @@ class UserController extends BaseController {
     }
 
     /**
-     *
+     * post user edit
      */
     public function postEdit()
     {
-
+        $user = new User;
+        $rules = $user->getValidationRules();
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            return Redirect::back()
+                ->withErrors($validator)
+                ->withInput();
+        }
     }
 
     /**
