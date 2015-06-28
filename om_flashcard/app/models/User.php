@@ -7,33 +7,54 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends BaseModel implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait;
+    use UserTrait, RemindableTrait;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = ['password', 'remember_token'];
+    /**
+     * fillable propaty
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'email'];
 
-	/**
-	 * soft delete setting
-	 *
-	 * @var bool
-	 */
-	protected $softDelete = true;
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * soft delete setting
+     *
+     * @var bool
+     */
+    protected $softDelete = true;
 
-	protected $validation_rules = [
-		'name' => 'required',
-		'email' => 'required|email|unique:users'
-	];
+    /**
+     * validation rules user create
+     *
+     * @var array
+     */
+    protected $validation_rules_for_create = [
+        'name' => 'required',
+        'email' => 'required|email|unique:users'
+    ];
+
+    /**
+     * validation rules user edit
+     *
+     * @var array
+     */
+    protected $validation_rules_for_edit = [
+        'name' => 'required',
+        'email' => 'required|email'
+    ];
 
 }

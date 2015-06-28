@@ -15,9 +15,9 @@ class BaseModel extends Eloquent
      *
      * @return array
      */
-    public function getValidationRules()
+    public function getValidationRules($rule_name = 'validation_rules')
     {
-        return $this->validation_rules;
+        return $this->{$rule_name};
     }
 
 }
