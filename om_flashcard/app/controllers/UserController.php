@@ -67,7 +67,7 @@ class UserController extends BaseController {
         if ($this->action === 'postEdit' && !empty($id)) {
             $user = User::find($id);
             if (empty($user)) {
-                return Redirect::to('user/index');
+                return Redirect::to('users/index');
             }
             $validation_rule_name = 'validation_rules_for_edit';
         } else {
@@ -87,7 +87,7 @@ class UserController extends BaseController {
         // set post data and save
         $user->fill(Input::all());
         $user->save();
-        return Redirect::to('user/index')
+        return Redirect::to('users/index')
             ->with('message', 'ユーザ情報を登録しました。');
     }
 

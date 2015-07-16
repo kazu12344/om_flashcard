@@ -38,7 +38,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
     protected $softDelete = true;
 
     /**
-     * validation rules user create
+     * validation rules for user create
      *
      * @var array
      */
@@ -48,7 +48,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
     ];
 
     /**
-     * validation rules user edit
+     * validation rules for user edit
      *
      * @var array
      */
