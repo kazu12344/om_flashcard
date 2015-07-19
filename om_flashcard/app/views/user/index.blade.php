@@ -20,7 +20,7 @@ user index
     @foreach($users as $user)
     <tbody>
     <tr>
-        <td>{{ $user->name }}</td>
+        <td>{{ HTML::link("users/edit/{$user->id}", $user->name) }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->created_at }}</td>
         <td>{{ $user->updated_at }}</td>
