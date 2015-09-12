@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Admin'], function(){
     Route::controller('admin/users', 'UserController');
 });
+
