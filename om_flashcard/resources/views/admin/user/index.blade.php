@@ -34,5 +34,6 @@ user index
     <tbody>
     @endforeach　
     </table>
+    {!! $users->render() !!}
 </div>
 @stop
