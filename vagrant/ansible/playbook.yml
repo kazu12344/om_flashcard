@@ -17,4 +17,4 @@
     - mariadb
     - composer
     - phpcommon
-#    - app
+    - app

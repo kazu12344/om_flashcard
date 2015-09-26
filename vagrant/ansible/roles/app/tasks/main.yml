@@ -1,2 +1,5 @@
 ---
 # application tasks to be customized and to run after the main provision
+- name: Run artisan migrate
+  shell: php /var/www/vhosts/om_flashcard/artisan migrate
+  sudo: yes
