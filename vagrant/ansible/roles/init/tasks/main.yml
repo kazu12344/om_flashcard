@@ -1,33 +1,54 @@
 ---
-- name: Update apt
-  sudo: yes
-  apt: update_cache=yes
-
 - name: Install System Packages
   sudo: yes
-  apt: pkg={{ item }} state=latest
+  yum: pkg={{ item }} state=latest
   with_items:
     - curl
     - wget
-    - python-software-properties
+    - libselinux-python
+    - vim
+    - gcc-c++
+    - kernel-devel
+    - python-devel
+    - python-setuptools
+    - mysql-devel
+    - gcc
+    - libxml2-devel
+    - openssl-devel
 
-- name: Add ppa Repository
+- name: easy_install pip
   sudo: yes
-  apt_repository: repo=ppa:ondrej/{{ php_ppa }}
+  easy_install: name={{ item }}
+  with_items:
+    - pip
 
-- name: Update apt
+- name: Install python-mysql
   sudo: yes
-  apt: update_cache=yes
+#  pip: name={{ item }} extra_args='--allow-all-external'
+  pip: name={{ item }}
+  with_items:
+    - mysql-python
 
-- name: Install Extra Packages
-  sudo: yes
-  apt: pkg={{ item }} state=latest
-  with_items: sys_packages
+#- name: upgrade all packages
+#  sudo: yes
+#  yum: name=* state=latest
 
-- name: Configure the timezone
+- name: Add EPEL/Remi/RPMforge Repositories
   sudo: yes
-  template: src=timezone.tpl dest=/etc/timezone
+  yum: name={{ item }}
+  with_items:
+    - http://mirror.csclub.uwaterloo.ca/fedora/epel//epel-release-latest-7.noarch.rpm
+    - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+    - http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
 
-- name: More Configure the timezone
-  sudo: yes
-  file: src=/usr/share/zoneinfo/{{timezone}} dest=/etc/localtime state=link force=yes backup=yes
+- replace: dest=/etc/yum.repos.d/{{item}} regexp="enabled *= *1" replace="enabled=0"
+  with_items:
+    - epel.repo
+    - rpmforge.repo
+    - remi.repo
+
+- name: Set TimeZone in /etc/localtime
+  command: /usr/bin/timedatectl set-timezone {{ timezone }}
+
+- name: Set ntp enabled
+  command: /usr/bin/timedatectl set-ntp true

@@ -3,7 +3,7 @@
   sudo: true
   vars:
     web_server: apachephp
-    servername: myApp.vb www.myApp.vb 192.168.33.99
+    servername: myApp.vb www.myApp.vb 192.168.33.101
     timezone: Asia/Tokyo
   vars_files:
     - vars/mariadb.yml
@@ -15,6 +15,6 @@
     - apache
     - php5
     - mariadb
-    - composer
-    - phpcommon
-    - app
+#    - composer
+#    - phpcommon
+#    - app

@@ -1,29 +1,19 @@
 ---
 - name: Install Apache
   sudo: yes
-  apt: pkg=apache2 state=latest
+  yum: pkg=httpd state=latest
 
-- name: Install Apache Modules
-  apache2_module: state=present name={{ item }}
-  notify: restart apache
-  with_items:
-    - rewrite
-    - vhost_alias
-    - headers
-    - expires
-    - filter
-
-- shell: apache2 -v
+- shell: httpd -v
   register: apache_version
 
 - name: Change default apache2.4 site
   sudo: yes
-  template: src=vhost24.conf.tpl dest=/etc/apache2/sites-available/000-default.conf
+  template: src=vhost24.conf.tpl dest=/etc/httpd/conf.modules.d/00-vhosts.conf
   notify: restart apache
   when: apache_version.stdout.find('Apache/2.4.') != -1
 
 - name: Change default apache2.2 site
   sudo: yes
-  template: src=vhost22.conf.tpl dest=/etc/apache2/sites-available/default
+  template: src=vhost22.conf.tpl dest=dest=/etc/httpd/conf.modules.d/vhosts.conf
   notify: restart apache
   when: apache_version.stdout.find('Apache/2.2.') != -1
