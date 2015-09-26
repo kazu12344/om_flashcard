@@ -7,4 +7,5 @@
 - name: Install PHP Packages
   sudo: yes
   yum: pkg={{ item }} state=latest enablerepo=remi-php56
+  notify: restart apache
   with_items: php_packages
