@@ -1,4 +1,10 @@
+- name: Install require package to install PHP Packages
+  sudo: yes
+  yum: name={{ item }} state=latest enablerepo=epel
+  with_items:
+    - libmcrypt
+
 - name: Install PHP Packages
   sudo: yes
-  yum: pkg={{ item }} state=latest
+  yum: pkg={{ item }} state=latest enablerepo=remi-php56
   with_items: php_packages

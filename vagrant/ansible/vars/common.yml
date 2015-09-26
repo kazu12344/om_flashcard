@@ -4,4 +4,4 @@
     sys_packages: ["vim","git"]
     dist: precise
     #php_packages: ["php5-mcrypt","php5-mbstring","php5-xdebug"]
-    php_packages: ["php5-mcrypt","php5-xdebug", "php5-mysql"]
+    php_packages: ["php-mcrypt", "php-pecl-xdebug", "php-mysql", "php-pdo"]
