@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => 'eloquent',
+    //'driver' => 'eloquent',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => App\User::class,
+    //'model' => App\User::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'table' => 'users',
+    //'table' => 'users',
 
     /*
     |--------------------------------------------------------------------------
@@ -59,9 +59,28 @@ return [
     */
 
     'password' => [
-        'email' => 'emails.password',
+        //'email' => 'emails.password',
+        'email' => 'emails.users.password',
         'table' => 'password_resets',
         'expire' => 60,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Setting for MultiAuth: https://github.com/Kbwebs/MultiAuth
+    |--------------------------------------------------------------------------
+    |
+    | comment out driver, model and table section and replace below.
+    |
+    */
+    'multi-auth' => [
+        'admin' => [
+            'driver' => 'eloquent',
+            'model'  => App\Admin::class
+        ],
+        'user' => [
+            'driver' => 'eloquent',
+            'model'  => App\User::class
+        ],
+    ]
 ];

@@ -13,7 +13,7 @@ user index
     {{ session('message') }}
     </div>
     @endif
-    {!! Html::link("admin/users/create", 'create', ['class' => 'btn btn-success']) !!}<br />
+    {!! Html::link("admin/user/create", 'create', ['class' => 'btn btn-success']) !!}<br />
     <table class="table table-striped table-bordered">
     <thead>
     <tr>
@@ -26,7 +26,7 @@ user index
     @foreach($users as $user)
     <tbody>
     <tr>
-        <td>{!! Html::link("admin/users/edit/{$user->id}", $user->name) !!}</td>
+        <td>{!! Html::link("admin/user/edit/{$user->id}", $user->name) !!}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->created_at }}</td>
         <td>{{ $user->updated_at }}</td>
