@@ -19,11 +19,14 @@ class BaseController extends Controller
      */
     public function getIndex()
     {
-        $users = call_user_func_array(
+        ${str_plural($this->controller_name)} = call_user_func_array(
             [$this->model_name, "paginate"],
             [20]
         );
-        return view("admin.{$this->controller_name}.index", ['users' => $users]);
+        return view(
+            "admin.{$this->controller_name}.index",
+            compact(str_plural(str_plural($this->controller_name)))
+        );
     }
 
     /**
@@ -99,6 +102,6 @@ class BaseController extends Controller
         $data->fill(\Input::all());
         $data->save();
         return \Redirect::to("admin/{$this->controller_name}/index")
-            ->with('message', 'saved user data');
+            ->with('message', 'save success');
     }
 }

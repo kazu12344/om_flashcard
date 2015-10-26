@@ -58,7 +58,7 @@ abstract class Controller extends BaseController
             '',
             class_basename($this->route_action_arr[0])
         );
-        $this->controller_name = mb_strtolower($this->controller_name);
+        $this->controller_name = snake_case($this->controller_name);
     }
 
     /**

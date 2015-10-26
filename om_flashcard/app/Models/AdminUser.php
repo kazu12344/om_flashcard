@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 //use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Kbwebs\MultiAuth\PasswordResets\Contracts\CanResetPassword as CanResetPasswordContract;
 
-class Admin extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
+class AdminUser extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
 
@@ -50,6 +50,7 @@ class Admin extends BaseModel implements AuthenticatableContract, CanResetPasswo
     protected $validation_rules_for_create = [
         'name' => 'required',
         'email' => 'required|email|unique:users',
+        'password' => 'required',
     ];
 
     /**
