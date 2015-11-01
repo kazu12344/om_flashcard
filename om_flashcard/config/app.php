@@ -147,6 +147,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * for separating Modules
+         */
+        Pingpong\Modules\ModulesServiceProvider::class,
     ],
 
     /*
@@ -197,6 +201,8 @@ return [
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
         'dateHelper' => App\Helpers\DateHelper::class,
+        'Module' => Pingpong\Modules\Facades\Module::class,
+
     ],
 
 ];

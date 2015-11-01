@@ -15,8 +15,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Admin'], function(){
-    Route::controller('admin/user', 'UserController');
-    Route::controller('admin/admin_user', 'AdminUserController');
-});
-
