@@ -7,10 +7,18 @@
  */
 namespace Modules\Admin\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers;
+use App\Models\AdminUser;
+use Illuminate\Http\Request;
+use App\Http\Requests;
 
-class BaseController extends Controller
+class BaseController extends \App\Http\Controllers\Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +31,7 @@ class BaseController extends Controller
             [20]
         );
         return view(
-            "admin.{$this->controller_name}.index",
+            "admin::{$this->controller_name}.index",
             compact(str_plural(str_plural($this->controller_name)))
         );
     }
@@ -60,11 +68,11 @@ class BaseController extends Controller
         if ($this->action_name === 'getEdit' && !empty($id)) {
             $data = call_user_func_array([$this->model_name, 'find'], [$id]);
             if (empty($data)) {
-                return Redirect::to("admin/{$this->controller_name}/index");
+                return \Redirect::to("admin/{$this->controller_name}/index");
             }
         }
         return view(
-            "admin.{$this->controller_name}.edit",
+            "admin::{$this->controller_name}.edit",
             [$this->controller_name => $data]
         );
     }
@@ -80,7 +88,7 @@ class BaseController extends Controller
         if ($this->action_name === 'postEdit' && !empty($id)) {
             $data = call_user_func_array([$this->model_name, 'find'], [$id]);
             if (empty($data)) {
-                return Redirect::to("admin/{$this->controller_name}/index");
+                return \Redirect::to("admin/{$this->controller_name}/index");
             }
             $validation_rule_name = 'validation_rules_for_edit';
         } else {

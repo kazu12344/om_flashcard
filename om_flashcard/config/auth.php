@@ -59,8 +59,7 @@ return [
     */
 
     'password' => [
-        //'email' => 'emails.password',
-        'email' => 'emails.users.password',
+        'email' => 'emails.password',
         'table' => 'password_resets',
         'expire' => 60,
     ],
@@ -76,11 +75,13 @@ return [
     'multi-auth' => [
         'admin' => [
             'driver' => 'eloquent',
-            'model'  => App\Admin::class
+            'model'  => App\Models\AdminUser::class,
+            'email' => 'emails.users.password',
         ],
         'user' => [
             'driver' => 'eloquent',
-            'model'  => App\User::class
+            'model'  => App\Models\User::class,
+            'email' => 'emails.users.password',
         ],
     ]
 ];
