@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Http\Middleware;
+namespace Modules\Front\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
@@ -34,8 +34,8 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        if (!\Auth::admin()->check()) {
-            return redirect('admin/login');
+        if (!\Auth::front()->check()) {
+            return redirect('front/login');
         }
         return $next($request);
     }

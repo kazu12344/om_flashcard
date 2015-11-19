@@ -61,4 +61,12 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         'name' => 'required',
         'email' => 'required|email',
     ];
+
+    public function fill(array $data)
+    {
+        if (!empty($data['password'])) {
+            $data['password'] = \Hash::make($data['password']);
+        }
+        parent::fill($data);
+    }
 }

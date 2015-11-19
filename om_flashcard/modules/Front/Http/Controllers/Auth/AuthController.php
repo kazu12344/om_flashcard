@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Admin\Http\Controllers\Auth;
+namespace Modules\Front\Http\Controllers\Auth;
 
-use App\Models\AdminUser;
+use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Modules\Admin\Http\Requests;
 use Illuminate\Http\Request;
 
-class AuthController extends \Modules\Admin\Http\Controllers\BaseController
+class AuthController extends \Modules\Front\Http\Controllers\BaseController
 {
     /*
     |--------------------------------------------------------------------------
@@ -25,7 +25,7 @@ class AuthController extends \Modules\Admin\Http\Controllers\BaseController
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-    protected $redirectPath = '/user/index';
+    protected $redirectPath = '/';
 
     protected $loginPath = '/login';
 
@@ -47,7 +47,7 @@ class AuthController extends \Modules\Admin\Http\Controllers\BaseController
      */
     public function getIndex()
     {
-        return view("admin::auth.login");
+        return view("front::auth.login");
     }
 
     /**
@@ -56,15 +56,15 @@ class AuthController extends \Modules\Admin\Http\Controllers\BaseController
      * @param Requests\LoginPostRequest $request
      * @return \Illuminate\View\View
      */
-    public function postIndex(\Modules\Admin\Http\Requests\LoginPostRequest $request)
+    public function postIndex(\Modules\Front\Http\Requests\LoginPostRequest $request)
     {
         $email = $request->input('email');
         $password = $request->input('password');
-        $result = \Auth::admin()->attempt(['email' => $email, 'password' => $password]);
+        $result = \Auth::front()->attempt(['email' => $email, 'password' => $password]);
         if ($result) {
-            return \Redirect::to("admin/user/index");
+            return \Redirect::to("/");
         }
-        return view("admin::auth.login");
+        return view("front::auth.login");
     }
 
     public function postLogout()

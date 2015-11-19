@@ -78,7 +78,7 @@ return [
             'model'  => App\Models\AdminUser::class,
             'email' => 'emails.users.password',
         ],
-        'user' => [
+        'front' => [
             'driver' => 'eloquent',
             'model'  => App\Models\User::class,
             'email' => 'emails.users.password',

@@ -22,6 +22,13 @@ user edit
                 {!! $errors->first('email', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
+        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+            <label class=" control-label col-sm-2">Password</label>
+            <div class="col-sm-4">
+                {!! Form::input('password', 'password', null, ['class' => 'form-control'] ) !!}
+                {!! $errors->first('email', '<span class="control-label">:message</span>') !!}
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-4">
                 <input type="submit" value="submit" class="btn btn-primary">
