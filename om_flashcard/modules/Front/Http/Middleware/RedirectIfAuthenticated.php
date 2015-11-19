@@ -35,7 +35,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if (!\Auth::front()->check()) {
-            return redirect('front/login');
+            return redirect('login');
         }
         return $next($request);
     }

@@ -6,7 +6,7 @@ Login
 
 @section('content')
 <div class="container" style="padding: 20px 0">
-    <h1>Login</h1>
+    <h1>Admin Login</h1>
      {!! Form::open(['url' => 'admin/login', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">

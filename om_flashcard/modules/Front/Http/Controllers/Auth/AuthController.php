@@ -7,7 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Modules\Admin\Http\Requests;
+use Modules\Front\Http\Requests;
 use Illuminate\Http\Request;
 
 class AuthController extends \Modules\Front\Http\Controllers\BaseController
@@ -37,7 +37,7 @@ class AuthController extends \Modules\Front\Http\Controllers\BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('guest', ['except' => 'getLogout']);
+//        $this->middleware('guest', ['except' => 'getLogout']);
     }
 
     /**

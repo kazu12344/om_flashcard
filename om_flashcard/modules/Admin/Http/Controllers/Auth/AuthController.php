@@ -37,7 +37,7 @@ class AuthController extends \Modules\Admin\Http\Controllers\BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('guest', ['except' => 'getLogout']);
+//        $this->middleware('guest', ['except' => 'getLogout']);
     }
 
     /**
