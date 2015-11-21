@@ -22,7 +22,7 @@ trait BasicDataRegistrationPageLogic
             [20]
         );
         return view(
-            "admin::{$this->controller_name}.index",
+            "{$this->module_name}::{$this->controller_name}.index",
             compact(str_plural(str_plural($this->controller_name)))
         );
     }
@@ -59,11 +59,11 @@ trait BasicDataRegistrationPageLogic
         if ($this->action_name === 'getEdit' && !empty($id)) {
             $data = call_user_func_array([$this->model_name, 'find'], [$id]);
             if (empty($data)) {
-                return \Redirect::to("admin/{$this->controller_name}/index");
+                return \Redirect::to("{$this->module_name}/{$this->controller_name}/index");
             }
         }
         return view(
-            "admin::{$this->controller_name}.edit",
+            "{$this->module_name}::{$this->controller_name}.edit",
             [$this->controller_name => $data]
         );
     }
@@ -79,7 +79,7 @@ trait BasicDataRegistrationPageLogic
         if ($this->action_name === 'postEdit' && !empty($id)) {
             $data = call_user_func_array([$this->model_name, 'find'], [$id]);
             if (empty($data)) {
-                return \Redirect::to("admin/{$this->controller_name}/index");
+                return \Redirect::to("{$this->module_name}/{$this->controller_name}/index");
             }
             $validation_rule_name = 'validation_rules_for_edit';
         } else {
@@ -99,7 +99,7 @@ trait BasicDataRegistrationPageLogic
         // set post data and save
         $data->fill(\Input::all());
         $data->save();
-        return \Redirect::to("admin/{$this->controller_name}/index")
+        return \Redirect::to("{$this->module_name}/{$this->controller_name}/index")
             ->with('message', 'save success');
     }
 

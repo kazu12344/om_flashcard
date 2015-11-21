@@ -26,6 +26,8 @@ class BaseController extends \App\Http\Controllers\Controller
     */
     use BasicDataRegistrationPageLogic;
 
+    public $module_name = 'admin';
+
     public function __construct()
     {
         parent::__construct();
