@@ -17,6 +17,7 @@ class CreateLanguageTable extends Migration
         {
             $table->increments('id');
             $table->string('lang_code', 8);
+            $table->string('lang_string', 32);
             $table->softDeletes();
             $table->timestamps();
         });
