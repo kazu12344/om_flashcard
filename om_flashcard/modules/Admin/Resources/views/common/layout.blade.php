@@ -10,6 +10,10 @@
     {!! Html::style('asset/css/bootstrap.css') !!}
 </head>
 <body>
+
+    @if (Auth::admin()->check())
+        @include('admin::common.navibar')
+    @endif
     @yield('content')
 
     {!! Html::script('asset/js/jquery-2.1.4.min.js') !!}

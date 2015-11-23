@@ -67,9 +67,10 @@ class AuthController extends \Modules\Admin\Http\Controllers\BaseController
         return view("admin::auth.login");
     }
 
-    public function postLogout()
+    public function getLogout()
     {
-
+        \Auth::admin()->logout();
+        return \Redirect::to('admin/login');
     }
 
      /**

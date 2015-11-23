@@ -1,4 +1,4 @@
-@extends('admin::layouts.layout')
+@extends('admin::common.layout')
 
 @section('title')
 user edit

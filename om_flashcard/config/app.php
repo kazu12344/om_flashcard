@@ -201,6 +201,7 @@ return [
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
         'dateHelper' => App\Helpers\DateHelper::class,
+        'OmUrlHelper' => App\Helpers\OmUrlHelper::class,
         'Module' => Pingpong\Modules\Facades\Module::class,
 
     ],
