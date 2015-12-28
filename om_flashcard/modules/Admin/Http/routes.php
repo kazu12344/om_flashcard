@@ -10,4 +10,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controller
     });
     Route::controller('login', 'Auth\AuthController');
     Route::get('logout', 'Auth\AuthController@getLogout');
+    Route::get('/', 'UserController@getIndex');
 });
