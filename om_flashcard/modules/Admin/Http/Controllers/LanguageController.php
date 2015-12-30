@@ -8,8 +8,9 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Traits\BasicDataRegistrationPageLogic;
 
 class LanguageController extends BaseController
 {
-
+    use BasicDataRegistrationPageLogic;
 }

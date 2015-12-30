@@ -10,6 +10,20 @@ namespace App\Traits;
 
 trait BasicDataRegistrationPageLogic
 {
+    protected $view_params = [];
+
+    protected $view_param = '';
+
+    protected $exception_redirect_route = '';
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setViewParams();
+        $this->setViewParam();
+        $this->setExceptionRedirectUrl();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +36,7 @@ trait BasicDataRegistrationPageLogic
             [20]
         );
         return view(
-            "{$this->module_name}::{$this->controller_name}.index",
+            $this->view_param,
             compact(str_plural(str_plural($this->controller_name)))
         );
     }
@@ -34,7 +48,7 @@ trait BasicDataRegistrationPageLogic
      */
     public function getCreate()
     {
-        return $this->getEdit();
+        return $this->getEditLogic();
     }
 
     /**
@@ -44,7 +58,7 @@ trait BasicDataRegistrationPageLogic
      */
     public function postCreate()
     {
-        return $this->postEdit();
+        return $this->postEditLogic();
     }
 
     /**
@@ -55,18 +69,27 @@ trait BasicDataRegistrationPageLogic
      */
     public function getEdit($id = null)
     {
+        return $this->getEditLogic($id);
+    }
+
+    private function getEditLogic($id = null)
+    {
         $data = [];
-        if ($this->action_name === 'getEdit' && !empty($id)) {
+        if ($this->action_name === 'getEdit') {
+            if (empty($id)) {
+                return \Redirect::to($this->exception_redirect_route);
+            }
             $data = call_user_func_array([$this->model_name, 'find'], [$id]);
             if (empty($data)) {
-                return \Redirect::to("{$this->module_name}/{$this->controller_name}/index");
+                return \Redirect::to($this->exception_redirect_route);
             }
         }
         return view(
-            "{$this->module_name}::{$this->controller_name}.edit",
+            $this->view_param,
             [$this->controller_name => $data]
         );
     }
+
 
     /**
      * post user edit
@@ -76,15 +99,29 @@ trait BasicDataRegistrationPageLogic
      */
     public function postEdit($id = null)
     {
-        if ($this->action_name === 'postEdit' && !empty($id)) {
+        $this->postEditLogic($id);
+    }
+
+    /**
+     * @param null $id
+     * @return mixed
+     */
+    private function postEditLogic($id = null)
+    {
+        if ($this->action_name === 'postEdit') {
+            if (empty($id)) {
+                return \Redirect::to($this->exception_redirect_route);
+            }
             $data = call_user_func_array([$this->model_name, 'find'], [$id]);
             if (empty($data)) {
-                return \Redirect::to("{$this->module_name}/{$this->controller_name}/index");
+                return \Redirect::to($this->exception_redirect_route);
             }
             $validation_rule_name = 'validation_rules_for_edit';
-        } else {
+        } elseif ($this->action_name === 'postCreate') {
             $data = new $this->model_name;
             $validation_rule_name = 'validation_rules_for_create';
+        } else {
+            return \Redirect::to($this->exception_redirect_route);
         }
 
         // validation
@@ -99,8 +136,38 @@ trait BasicDataRegistrationPageLogic
         // set post data and save
         $data->fill(\Input::all());
         $data->save();
-        return \Redirect::to("{$this->module_name}/{$this->controller_name}/index")
+        return \Redirect::to($this->view_param)
             ->with('message', 'save success');
     }
 
+    private function setExceptionRedirectUrl()
+    {
+        if (empty($this->exception_redirect_route)) {
+            $this->exception_redirect_route =
+                "{$this->module_name}/{$this->controller_name}/index";
+        }
+    }
+
+    private function setViewParams()
+    {
+        $this->view_params = [
+            'getIndex' => "{$this->module_name}::{$this->controller_name}.index",
+            'getCreate' => "{$this->module_name}::{$this->controller_name}.edit",
+            'getEdit' => "{$this->module_name}::{$this->controller_name}.edit",
+            'postCreate' => "{$this->module_name}/{$this->controller_name}/index",
+            'postEdit' => "{$this->module_name}/{$this->controller_name}/index",
+        ];
+    }
+
+    private function setViewParam()
+    {
+        if (empty($this->view_params[$this->action_name])) {
+            abort(404);
+        }
+        $this->view_param = $this->view_params[$this->action_name];
+
+        if (\Request::isMethod('get') && !\View::exists($this->view_param)) {
+            abort(404);
+        }
+    }
 }

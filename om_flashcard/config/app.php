@@ -151,6 +151,12 @@ return [
          * for separating Modules
          */
         Pingpong\Modules\ModulesServiceProvider::class,
+
+        /**
+         * Custome Varidator Provider
+         */
+        App\Providers\CustomValidatorServiceProvider::class,
+
     ],
 
     /*

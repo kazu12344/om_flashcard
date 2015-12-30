@@ -11,7 +11,6 @@ use App\Http\Controllers;
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Traits\BasicDataRegistrationPageLogic;
 
 class BaseController extends \App\Http\Controllers\Controller
 {
@@ -24,7 +23,6 @@ class BaseController extends \App\Http\Controllers\Controller
     | feature. (index, create, edit, delet)
     |
     */
-    use BasicDataRegistrationPageLogic;
 
     public $module_name = 'admin';
 

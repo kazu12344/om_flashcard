@@ -15,4 +15,10 @@ use App\Http\Requests;
 class BaseController extends \App\Http\Controllers\Controller
 {
     public $module_name = 'front';
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
 }

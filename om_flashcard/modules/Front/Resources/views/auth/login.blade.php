@@ -1,4 +1,4 @@
-@extends('front::layouts.layout')
+@extends('front::common.layout')
 
 @section('title')
 Login

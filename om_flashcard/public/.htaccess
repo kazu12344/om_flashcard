@@ -14,3 +14,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# xdebug settings
+#php_value xdebug.var_display_max_children -1
+#php_value xdebug.var_display_max_data -1
+#php_value xdebug.var_display_max_depth -1
