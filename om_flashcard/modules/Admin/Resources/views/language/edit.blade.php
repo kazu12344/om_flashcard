@@ -8,18 +8,18 @@
 <div class="container" style="padding: 20px 0">
     <h1>{{ trans('admin::pagetitle.language.create')  }}</h1>
     {!! Form::model($language, ['class' => 'form-horizontal']) !!}
-        <div class="form-group {{ $errors->has('lang_code') ? 'has-error' : '' }}">
-            <label class=" control-label col-sm-2">{{ trans('language.lang_code') }}</label>
+        <div class="form-group {{ $errors->has('code') ? 'has-error' : '' }}">
+            <label class=" control-label col-sm-2">{{ trans('language.code') }}</label>
             <div class="col-sm-2">
-                {!! Form::text('lang_code', null, ['class' => 'form-control'] ) !!}
-                {!! $errors->first('lang_code', '<span class="control-label">:message</span>') !!}
+                {!! Form::text('code', null, ['class' => 'form-control'] ) !!}
+                {!! $errors->first('code', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
-        <div class="form-group {{ $errors->has('lang_string') ? 'has-error' : '' }}">
-            <label class=" control-label col-sm-2">{{ trans('language.lang_string') }}</label>
+        <div class="form-group {{ $errors->has('string') ? 'has-error' : '' }}">
+            <label class=" control-label col-sm-2">{{ trans('language.string') }}</label>
             <div class="col-sm-4">
-                {!! Form::text('lang_string', null, ['class' => 'form-control'] ) !!}
-                {!! $errors->first('lang_string', '<span class="control-label">:message</span>') !!}
+                {!! Form::text('string', null, ['class' => 'form-control'] ) !!}
+                {!! $errors->first('string', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
         <div class="form-group">

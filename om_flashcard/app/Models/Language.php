@@ -23,7 +23,7 @@ class Language extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['lang_code', 'lang_string'];
+    protected $fillable = ['code', 'string'];
 
     /**
      * soft delete setting
@@ -38,8 +38,8 @@ class Language extends BaseModel
      * @var array
      */
     protected $validation_rules_for_create = [
-        'lang_code' => 'required',
-        'lang_string' => 'required|alpha_dash',
+        'code' => 'required',
+        'string' => 'required|alpha_dash',
     ];
 
     /**
@@ -48,8 +48,18 @@ class Language extends BaseModel
      * @var array
      */
     protected $validation_rules_for_edit = [
-        'lang_code' => 'required',
-        'lang_string' => 'required|alpha_dash',
+        'code' => 'required',
+        'string' => 'required|alpha_dash',
     ];
+
+    public function getSelectBoxData()
+    {
+        $select_box_data = [];
+        $languages = self::orderBy('code')->get();
+        foreach ($languages as $language) {
+            $select_box_data[$language->code] = $language->string;
+        }
+        return $select_box_data;
+    }
 
 }

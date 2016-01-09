@@ -17,9 +17,9 @@
     <table class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th>{{ trans('admin::language.id') }}</th>
-        <th>{{ trans('admin::language.lang_code') }}</th>
-        <th>{{ trans('admin::language.lang_string') }}</th>
+        <th>{{ trans('language.id') }}</th>
+        <th>{{ trans('language.code') }}</th>
+        <th>{{ trans('language.string') }}</th>
         <th>{{ trans('common.updated_at') }}</th>
         <th>{{ trans('common.updated_at') }}</th>
     </tr>
@@ -28,8 +28,8 @@
     <tbody>
     <tr>
         <td>{!! Html::link("admin/language/edit/{$language->id}", $language->id) !!}</td>
-        <td>{{ $language->lang_code }}</td>
-        <td>{{ $language->lang_string }}</td>
+        <td>{{ $language->code }}</td>
+        <td>{{ $language->string }}</td>
         <td>{{ $language->created_at }}</td>
         <td>{{ $language->updated_at }}</td>
     </tr>

@@ -7,6 +7,6 @@
  */
 return [
     'id' => 'ID',
-    'lang_code' => 'Language Code',
-    'lang_string' => 'Language String',
+    'code' => 'Language Code',
+    'string' => 'Language String',
 ];

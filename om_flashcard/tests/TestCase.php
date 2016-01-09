@@ -1,7 +1,12 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * The base URL to use while testing the application.
      *
@@ -16,10 +21,25 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
+        putenv('DB_CONNECTION=mysql_testing');
+
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
     }
+
+    public function setUp()
+    {
+        parent::setUp();
+        Artisan::call('migrate');
+    }
+
+    public function tearDown()
+    {
+        Artisan::call('migrate:reset');
+        parent::tearDown();
+    }
+
 }

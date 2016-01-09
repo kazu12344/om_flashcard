@@ -72,24 +72,39 @@ trait BasicDataRegistrationPageLogic
         return $this->getEditLogic($id);
     }
 
+    /**
+     * @param null $id
+     * @return \Illuminate\View\View
+     */
     private function getEditLogic($id = null)
     {
-        $data = [];
+        $view_data = [];
         if ($this->action_name === 'getEdit') {
             if (empty($id)) {
                 return \Redirect::to($this->exception_redirect_route);
             }
-            $data = call_user_func_array([$this->model_name, 'find'], [$id]);
-            if (empty($data)) {
+            $view_data[$this->controller_name] = $this->getEditData($id);
+            if (empty($view_data)) {
                 return \Redirect::to($this->exception_redirect_route);
             }
         }
+        if (method_exists($this, 'getEditViewData')) {
+            $view_data = $this->getEditViewData($view_data);
+        }
         return view(
             $this->view_param,
-            [$this->controller_name => $data]
+            $view_data
         );
     }
 
+    /**
+     * @param null $id
+     * @return mixed
+     */
+    protected function getEditData($id = null)
+    {
+        return call_user_func_array([$this->model_name, 'find'], [$id]);
+    }
 
     /**
      * post user edit

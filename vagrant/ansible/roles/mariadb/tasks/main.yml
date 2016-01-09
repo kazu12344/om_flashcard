@@ -23,12 +23,28 @@
     - mariadb-server
 #    - python-mysqldb
 
+#- name: mariadb | Create databases
+#  sudo: yes
+#  mysql_db: name={{ database.db }} state=present
+#  with_items: mariadb
+
+#- name: mariadb | Create users
+#  sudo: yes
+#  mysql_user: name={{ database.user }} password={{ database.pass }} priv={{ database.db }}.*:ALL state=present
+#  with_items: mariadb
+
 - name: mariadb | Create databases
   sudo: yes
-  mysql_db: name={{ database.db }} state=present
-  with_items: mariadb
+  mysql_db: name='om_flashcard'
 
 - name: mariadb | Create users
   sudo: yes
-  mysql_user: name={{ database.user }} password={{ database.pass }} priv={{ database.db }}.*:ALL state=present
-  with_items: mariadb
+  mysql_user: name='omf' password='omf:-)' priv=om_flashcard.*:ALL state=present
+
+- name: mariadb | Create databases for testing
+  sudo: yes
+  mysql_db: name='om_flashcard_testing'
+
+- name: mariadb | Create users for testing db
+  sudo: yes
+  mysql_user: name='omf_testing' password='omf:-)' priv=om_flashcard_testing.*:ALL state=present

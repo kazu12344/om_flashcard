@@ -15,14 +15,14 @@ user edit
                 {!! $errors->first('name', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+        <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
             <label class=" control-label col-sm-2">Email</label>
             <div class="col-sm-4">
                 {!! Form::text('email', null, ['class' => 'form-control'] ) !!}
                 {!! $errors->first('email', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+        <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
             <label class=" control-label col-sm-2">Password</label>
             <div class="col-sm-4">
                 {!! Form::password('password', ['class' => 'form-control'] ) !!}

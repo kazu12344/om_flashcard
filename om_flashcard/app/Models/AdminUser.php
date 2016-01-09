@@ -49,7 +49,7 @@ class AdminUser extends BaseModel implements AuthenticatableContract, CanResetPa
      */
     protected $validation_rules_for_create = [
         'name' => 'required',
-        'email' => 'required|email|unique:users',
+        'email' => 'required|email|unique:admins',
         'password' => 'required',
     ];
 

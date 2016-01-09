@@ -7,6 +7,6 @@
  */
 return [
     'id' => 'ID',
-    'lang_code' => '言語コード',
-    'lang_string' => '言語',
+    'code' => '言語コード',
+    'string' => '言語',
 ];
