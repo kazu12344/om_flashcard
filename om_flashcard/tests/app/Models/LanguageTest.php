@@ -15,16 +15,16 @@ class LanguageTest extends TestCase
     {
         // saving test values to testing_database
         factory(Language::class)->make([
-            'code' => 'en',
+            'id' => '1',
             'string' => 'English',
         ])->save();
         factory(Language::class)->make([
-            'code' => 'ja',
+            'id' => '2',
             'string' => 'Japanese',
         ])->save();
 
         $language = new Language();
-        $expected_val = ['en' => 'English', 'ja' => 'Japanese'];
+        $expected_val = ['1' => 'English', '2' => 'Japanese'];
         $result = $language->getSelectBoxData();
         $this->assertEquals($expected_val, $result);
     }

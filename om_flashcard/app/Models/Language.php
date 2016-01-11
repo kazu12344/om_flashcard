@@ -57,7 +57,7 @@ class Language extends BaseModel
         $select_box_data = [];
         $languages = self::orderBy('code')->get();
         foreach ($languages as $language) {
-            $select_box_data[$language->code] = $language->string;
+            $select_box_data[$language->id] = $language->string;
         }
         return $select_box_data;
     }

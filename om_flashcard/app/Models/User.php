@@ -62,6 +62,21 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         'email' => 'required|email',
     ];
 
+    /**
+     * Define many to many relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function languages()
+    {
+        return $this->belongsToMany('App\Models\Language', 'language_user')
+            ->withPivot('language_id', 'user_id', 'is_native_language')
+            ->withTimestamps();
+    }
+
+    /**
+     * Override
+     */
     public function fill(array $data)
     {
         if (!empty($data['password'])) {
@@ -70,5 +85,44 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
             unset($data['password']);
         }
         parent::fill($data);
+    }
+
+    /**
+     * Override
+     */
+    public function save(array $options = [])
+    {
+        $native_languages = \Request::input('native_languages');
+        $practicing_languages = \Request::input('practicing_languages');
+        if (empty($native_languages) || empty($practicing_languages)) {
+            return false;
+        }
+
+        $languages = $this->getLanguageSaveData($native_languages, $practicing_languages);
+        return \DB::transaction(function() use ($languages)
+        {
+            try {
+                $this->languages()->sync($languages);
+                return parent::save();
+            } catch (\Exception $e) {
+                return false;
+            }
+        });
+    }
+
+    /**
+     * @param array $native_languages
+     * @return array
+     */
+    private function getLanguageSaveData(array $native_languages, array $practicing_languages)
+    {
+        $save_data = [];
+        foreach ($native_languages as $native_language_id) {
+            $save_data[$native_language_id] = ['is_native_language' =>  true];
+        }
+        foreach ($practicing_languages as $practicing_language_id) {
+            $save_data[$practicing_language_id] = ['is_native_language' =>  false];
+        }
+        return $save_data;
     }
 }

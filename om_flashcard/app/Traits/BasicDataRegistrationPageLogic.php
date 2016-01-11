@@ -150,7 +150,11 @@ trait BasicDataRegistrationPageLogic
 
         // set post data and save
         $data->fill(\Input::all());
-        $data->save();
+
+        if (!$data->save()) {
+            return \Redirect::back()
+                ->with('error_message', 'save failure');
+        }
         return \Redirect::to($this->view_param)
             ->with('message', 'save success');
     }

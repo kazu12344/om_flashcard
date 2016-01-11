@@ -7,11 +7,7 @@ user edit
 @section('content')
 <div class="container" style="padding: 20px 0">
     <h1>{{ trans('front::pagetitle.user.edit') }}</h1>
-    @if (session('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
-    @endif
+    @include('common.flash_message')
     {!! Form::model($user, ['class' => 'form-horizontal']) !!}
         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
             <label class=" control-label col-sm-2">{{ trans('user.name') }}</label>
@@ -27,18 +23,18 @@ user edit
                 {!! $errors->first('email', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
-        <div class="form-group {{ $errors->has('native_language') ? 'has-error' : '' }}">
+        <div class="form-group {{ $errors->has('native_languages') ? 'has-error' : '' }}">
             <label class=" control-label col-sm-2">{{ trans('user.native_language') }}</label>
             <div class="col-sm-4">
-                {!! Form::select('native_language', $language_selectbox_data, null, ['class' => 'form-control'] ) !!}
-                {!! $errors->first('native_language', '<span class="control-label">:message</span>') !!}
+                {!! Form::select('native_languages[]', $language_selectbox_data, null, ['class' => 'form-control'] ) !!}
+                {!! $errors->first('native_languages', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
-        <div class="form-group {{ $errors->has('paracticing_language') ? 'has-error' : '' }}">
+        <div class="form-group {{ $errors->has('practicing_languages') ? 'has-error' : '' }}">
             <label class=" control-label col-sm-2">{{ trans('user.paracticing_language') }}</label>
             <div class="col-sm-4">
-                {!! Form::select('paracticing_language', $language_selectbox_data, null, ['class' => 'form-control'] ) !!}
-                {!! $errors->first('paracticing_language', '<span class="control-label">:message</span>') !!}
+                {!! Form::select('practicing_languages[]', $language_selectbox_data, null, ['class' => 'form-control'] ) !!}
+                {!! $errors->first('practicing_languages', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
         <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
@@ -62,4 +58,7 @@ user edit
         </div>
     {!! Form::close() !!}
 </div>
+<script>
+
+</script>
 @stop
