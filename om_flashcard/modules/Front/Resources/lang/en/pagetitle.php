@@ -11,6 +11,9 @@ return [
         'login' => 'Login',
         'logout' => 'Logout',
     ],
+    'home' => [
+        'index' => 'Home Page',
+    ],
     'user' => [
         'edit' => 'User Edit',
     ],

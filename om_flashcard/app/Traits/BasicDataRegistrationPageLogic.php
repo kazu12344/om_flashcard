@@ -79,6 +79,7 @@ trait BasicDataRegistrationPageLogic
     private function getEditLogic($id = null)
     {
         $view_data = [];
+        $view_data[$this->controller_name] = [];
         if ($this->action_name === 'getEdit') {
             if (empty($id)) {
                 return \Redirect::to($this->exception_redirect_route);
@@ -150,13 +151,12 @@ trait BasicDataRegistrationPageLogic
 
         // set post data and save
         $data->fill(\Input::all());
-
         if (!$data->save()) {
             return \Redirect::back()
-                ->with('error_message', 'save failure');
+                ->with('error_message', trans('message.saving_failure'));
         }
         return \Redirect::to($this->view_param)
-            ->with('message', 'save success');
+            ->with('message',  trans('message.saving_success'));
     }
 
     private function setExceptionRedirectUrl()
@@ -181,12 +181,12 @@ trait BasicDataRegistrationPageLogic
     private function setViewParam()
     {
         if (empty($this->view_params[$this->action_name])) {
-            abort(404);
+            return false;
         }
         $this->view_param = $this->view_params[$this->action_name];
 
-        if (\Request::isMethod('get') && !\View::exists($this->view_param)) {
-            abort(404);
-        }
+//        if (\Request::isMethod('get') && !\View::exists($this->view_param)) {
+//            abort(404);
+//        }
     }
 }

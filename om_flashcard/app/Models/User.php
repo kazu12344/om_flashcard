@@ -92,13 +92,23 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      */
     public function save(array $options = [])
     {
+        // Get and check params
         $native_languages = \Request::input('native_languages');
         $practicing_languages = \Request::input('practicing_languages');
         if (empty($native_languages) || empty($practicing_languages)) {
             return false;
         }
 
-        $languages = $this->getLanguageSaveData($native_languages, $practicing_languages);
+        // Make data to save language status to intermediate table.
+        $native_languages = $this->getLanguageSaveData(
+            $native_languages, $is_native = true
+        );
+        $practicing_languages = $this->getLanguageSaveData(
+            $practicing_languages, $is_native = false
+        );
+        $languages = $native_languages + $practicing_languages;
+
+        // Save data to intermediate table.
         return \DB::transaction(function() use ($languages)
         {
             try {
@@ -111,17 +121,17 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
     }
 
     /**
+     * Make data to save language status to intermediate table.
+     *
      * @param array $native_languages
+     * @param $is_native
      * @return array
      */
-    private function getLanguageSaveData(array $native_languages, array $practicing_languages)
+    private function getLanguageSaveData(array $native_languages, $is_native)
     {
         $save_data = [];
         foreach ($native_languages as $native_language_id) {
-            $save_data[$native_language_id] = ['is_native_language' =>  true];
-        }
-        foreach ($practicing_languages as $practicing_language_id) {
-            $save_data[$practicing_language_id] = ['is_native_language' =>  false];
+            $save_data[$native_language_id] = ['is_native_language' =>  $is_native];
         }
         return $save_data;
     }

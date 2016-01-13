@@ -15,5 +15,6 @@
     <Directory {{ doc_root }}>
         AllowOverride All
         Require all granted
+        EnableSendfile off
     </Directory>
 </VirtualHost>

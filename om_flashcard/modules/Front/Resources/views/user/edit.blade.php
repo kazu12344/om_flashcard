@@ -23,18 +23,34 @@ user edit
                 {!! $errors->first('email', '<span class="control-label">:message</span>') !!}
             </div>
         </div>
-        <div class="form-group {{ $errors->has('native_languages') ? 'has-error' : '' }}">
-            <label class=" control-label col-sm-2">{{ trans('user.native_language') }}</label>
-            <div class="col-sm-4">
-                {!! Form::select('native_languages[]', $language_selectbox_data, null, ['class' => 'form-control'] ) !!}
-                {!! $errors->first('native_languages', '<span class="control-label">:message</span>') !!}
+        <div class="languages-select-container">
+            <div class="language-select-boxes">
+                @include('common.language_select_box', [
+                    'select_box_data' => $language_selectbox_data,
+                    'element_name' => 'native_languages',
+                    'default_data' => $native_languages,
+                ])
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4 text-right add-languages-btn" data-lang-add-btn-name="native_languages">
+                    <button class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
             </div>
         </div>
-        <div class="form-group {{ $errors->has('practicing_languages') ? 'has-error' : '' }}">
-            <label class=" control-label col-sm-2">{{ trans('user.paracticing_language') }}</label>
-            <div class="col-sm-4">
-                {!! Form::select('practicing_languages[]', $language_selectbox_data, null, ['class' => 'form-control'] ) !!}
-                {!! $errors->first('practicing_languages', '<span class="control-label">:message</span>') !!}
+        <div class="languages-select-container">
+            <div class="language-select-boxes">
+                @include('common.language_select_box', [
+                    'select_box_data' => $language_selectbox_data,
+                    'element_name' => 'practicing_languages',
+                    'default_data' => $practicing_languages,
+                ])
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4 text-right add-languages-btn" data-lang-add-btn-name="practicing_languages">
+                    <button class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
             </div>
         </div>
         <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
@@ -59,6 +75,29 @@ user edit
     {!! Form::close() !!}
 </div>
 <script>
-
+$(function(){
+    $('.add-languages-btn').on('click', function(e){
+        e.preventDefault();
+        var lang_add_btn_name = $(this).data('lang-add-btn-name');
+        var $add_languages_btn = $(this);
+        $.ajax({
+            url: '<?php echo url('user/ajax-add-select-box'); ?>',
+            dataType: 'html',
+            method: 'POST',
+            data: {
+                'element_name': lang_add_btn_name,
+                '_token':$('input[name=_token]').val()
+            },
+            success: function(data) {
+                $add_languages_btn.closest('.languages-select-container').find('.language-select-boxes').append(data);
+            }
+        });
+    });
+    $('.languages-select-container').on('click', '.remove-language-btn', function(e){
+        e.preventDefault();
+        console.log(':)');
+        $(this).closest('.form-group').remove();
+    });
+});
 </script>
 @stop

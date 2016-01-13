@@ -16,5 +16,6 @@
         AllowOverride All
         Order allow,deny
         Allow from all
+        EnableSendfile off
     </Directory>
 </VirtualHost>

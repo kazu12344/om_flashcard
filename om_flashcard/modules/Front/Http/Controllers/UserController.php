@@ -48,6 +48,15 @@ class UserController extends BaseController
     {
         $language = new Language();
         $view_data['language_selectbox_data'] = $language->getSelectBoxData();
+        $view_data['native_languages'] = [];
+        $view_data['practicing_languages'] = [];
+        foreach ($view_data['user']->languages as $language) {
+            if ($language->pivot->is_native_language) {
+                $view_data['native_languages'][] = $language->id;
+            } else {
+                $view_data['practicing_languages'][] = $language->id;
+            }
+        }
         return $view_data;
     }
 
@@ -55,6 +64,23 @@ class UserController extends BaseController
     {
         $id = \Auth::front()->user()->id;
         return $this->postEditLogic($id);
+    }
+
+    public function postAjaxAddSelectBox(Request $request)
+    {
+        if (!$request->ajax()) {
+            return false;
+        }
+        if (!$request->input('element_name')) {
+            return false;
+        }
+        $language = new Language();
+        $data['select_box_data'] = $language->getSelectBoxData();
+        $data['element_name'] = $request->input('element_name');
+        $data['hide_element_name'] = true;
+        $select_box_html = view('common.language_select_box', $data);
+        echo $select_box_html;
+        exit;
     }
 
 }

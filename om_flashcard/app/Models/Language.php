@@ -52,9 +52,15 @@ class Language extends BaseModel
         'string' => 'required|alpha_dash',
     ];
 
-    public function getSelectBoxData()
+    public function getSelectBoxData($options = [])
     {
+        $default = [
+            'default' => '',
+        ];
+        $options = array_merge($default, $options);
+
         $select_box_data = [];
+        $select_box_data[''] = $options['default'];
         $languages = self::orderBy('code')->get();
         foreach ($languages as $language) {
             $select_box_data[$language->id] = $language->string;

@@ -9,8 +9,8 @@ return [
     'id' => 'ID',
     'name' => 'User Name',
     'email' => 'Email',
-    'native_language' => 'Native Language',
-    'paracticing_language' => 'Practicing Language',
+    'native_languages' => 'Native Language',
+    'practicing_languages' => 'Practicing Language',
     'password' => 'Password',
     'password_confirmation' => 'Confirm Password',
 ];
