@@ -127,12 +127,29 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
      * @param $is_native
      * @return array
      */
-    private function getLanguageSaveData(array $native_languages, $is_native)
+    private function getLanguageSaveData(array $languages, $is_native)
     {
         $save_data = [];
-        foreach ($native_languages as $native_language_id) {
-            $save_data[$native_language_id] = ['is_native_language' =>  $is_native];
+        foreach ($languages as $language_id) {
+            $save_data[$language_id] = ['is_native_language' =>  $is_native];
         }
         return $save_data;
+    }
+
+    /**
+     * @param User $user
+     */
+    public static function getRegisterdLanguageData(User $user)
+    {
+        $data['native_languages'] = [];
+        $data['practicing_languages'] = [];
+        foreach ($user->languages as $language) {
+            if ($language->pivot->is_native_language) {
+                $data['native_languages'][$language->id] = $language->string;
+            } else {
+                $data['practicing_languages'][$language->id] = $language->string;
+            }
+        }
+        return $data;
     }
 }

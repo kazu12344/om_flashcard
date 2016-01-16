@@ -9,4 +9,5 @@ return [
     'id' => 'ID',
     'code' => 'Language Code',
     'string' => 'Language String',
+    'languages' => 'Languages'
 ];

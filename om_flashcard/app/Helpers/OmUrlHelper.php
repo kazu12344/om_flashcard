@@ -26,4 +26,21 @@ class OmUrlHelper
         }
         return false;
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getActionName($options = array())
+    {
+        $options = OmUtileHelper::getOptionArray(
+            ['only_action_name' => true],
+            $options
+        );
+        $route_action = \Route::currentRouteAction();
+        if ($options['only_action_name']) {
+            $route_action_array = explode('@', $route_action);
+            $route_action = $route_action_array[1];
+        }
+        return $route_action;
+    }
 }

@@ -8,6 +8,7 @@
  * Language Select Box part.
  * param array $select_box_data
  * param string $element_name
+ * param boolean $hide_element_name
  */
 ?>
 @if (empty($default_data))
@@ -26,10 +27,11 @@
         </div>
     </div>
 @else
-    @foreach ($default_data as $key => $default_lang_id)
+    <?php $loop_num = 0; ?>
+    @foreach ($default_data as $default_lang_id => $language_string)
     <div class="form-group {{ $errors->has($element_name) ? 'has-error' : '' }}">
         <label class="control-label col-sm-2">
-            @if ($key == 0)
+            @if ($loop_num == 0)
                 {{ trans("user.{$element_name}") }}
             @endif
         </label>
@@ -37,11 +39,12 @@
             {!! Form::select("{$element_name}[]", $select_box_data, $default_lang_id, ['class' => 'form-control'] ) !!}
             {!! $errors->first($element_name, '<span class="control-label">:message</span>') !!}
         </div>
-        @if ($key != 0)
+        @if ($loop_num != 0)
             <div class="col-sm-2">
                 <button class="btn btn-default btn-xs remove-language-btn"><i class="glyphicon glyphicon-remove"></i></button>
             </div>
         @endif
     </div>
+    <?php $loop_num++; ?>
     @endforeach
 @endif

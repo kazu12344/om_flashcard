@@ -208,8 +208,8 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'dateHelper' => App\Helpers\DateHelper::class,
         'OmUrlHelper' => App\Helpers\OmUrlHelper::class,
+        'OmUtilHelper' => App\Helpers\OmUtilHelper::class,
         'Module' => Pingpong\Modules\Facades\Module::class,
-
     ],
 
 ];

@@ -10,6 +10,14 @@ namespace App\Traits;
 
 trait BasicDataRegistrationPageLogic
 {
+    protected $access_condition = [
+        'getIndex' => true,
+        'getCreate' => true,
+        'getEdit' => true,
+        'postCreate' => true,
+        'postEdit' => true,
+    ];
+
     protected $view_params = [];
 
     protected $view_param = '';
@@ -19,6 +27,7 @@ trait BasicDataRegistrationPageLogic
     public function __construct()
     {
         parent::__construct();
+        $this->checkAccessCondition();
         $this->setViewParams();
         $this->setViewParam();
         $this->setExceptionRedirectUrl();
@@ -167,6 +176,14 @@ trait BasicDataRegistrationPageLogic
         }
     }
 
+    private function checkAccessCondition()
+    {
+        if (isset($this->access_condition[$this->action_name]) &&
+            !$this->access_condition[$this->action_name]) {
+            abort(404);
+        }
+    }
+
     private function setViewParams()
     {
         $this->view_params = [
@@ -184,9 +201,5 @@ trait BasicDataRegistrationPageLogic
             return false;
         }
         $this->view_param = $this->view_params[$this->action_name];
-
-//        if (\Request::isMethod('get') && !\View::exists($this->view_param)) {
-//            abort(404);
-//        }
     }
 }

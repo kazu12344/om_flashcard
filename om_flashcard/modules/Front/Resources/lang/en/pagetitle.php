@@ -21,5 +21,7 @@ return [
         'index' => 'Sentence List',
         'create' => 'Sentence Registration',
         'edit' => 'Sentence Edit',
+        'native_language_sentence' => 'Native Language',
+        'practicing_language_sentence' => 'Practicing Language',
     ],
 ];

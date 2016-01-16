@@ -48,15 +48,9 @@ class UserController extends BaseController
     {
         $language = new Language();
         $view_data['language_selectbox_data'] = $language->getSelectBoxData();
-        $view_data['native_languages'] = [];
-        $view_data['practicing_languages'] = [];
-        foreach ($view_data['user']->languages as $language) {
-            if ($language->pivot->is_native_language) {
-                $view_data['native_languages'][] = $language->id;
-            } else {
-                $view_data['practicing_languages'][] = $language->id;
-            }
-        }
+        $user = new User();
+        $registered_language = $user->getRegisterdLanguageData($view_data['user']);
+        $view_data = array_merge($view_data, $registered_language);
         return $view_data;
     }
 
