@@ -17,3 +17,7 @@
   border-right-style: solid !important;
   border-left-style: solid !important;
 }
+/* line 11, ../sass/sentences.scss */
+#sentence-container .btn-create {
+  margin-bottom: 10px;
+}

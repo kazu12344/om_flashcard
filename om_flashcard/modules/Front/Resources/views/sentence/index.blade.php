@@ -7,7 +7,7 @@
 <div class="container">
     <h1>{{ trans('front::pagetitle.sentence.index') }}</h1>
     @include('common.flash_message')
-    {!! Html::link("sentence/create", trans('common.create'), ['class' => 'btn btn-success']) !!}<br />
+    {!! Html::link("sentence/create", trans('common.create'), ['class' => 'btn btn-success btn-create']) !!}<br />
     <table class="table table-striped table-bordered">
     <thead>
     <tr>
