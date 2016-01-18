@@ -157,6 +157,8 @@ return [
          */
         App\Providers\CustomValidatorServiceProvider::class,
 
+        // debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -210,6 +212,7 @@ return [
         'OmUrlHelper' => App\Helpers\OmUrlHelper::class,
         'OmUtilHelper' => App\Helpers\OmUtilHelper::class,
         'Module' => Pingpong\Modules\Facades\Module::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

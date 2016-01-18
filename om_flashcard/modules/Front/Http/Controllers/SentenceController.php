@@ -10,7 +10,21 @@ use App\Models\User;
 class SentenceController extends BaseController
 {
 
-    use BasicDataRegistrationPageLogic;
+//    use BasicDataRegistrationPageLogic;
+
+    public function getIndex()
+    {
+        $user_id = \Auth::front()->user()->id;
+        $this->view_data = array_merge(
+            $this->view_data,
+            Sentence::getSentencesDataForIndexView($user_id)
+        );
+//        var_dump($sentence_groups);exit;
+        return view(
+            'front::sentence.index',
+            $this->view_data
+        );
+    }
 
     /**
      * @return \Illuminate\View\View
@@ -54,12 +68,17 @@ class SentenceController extends BaseController
     public function postCreate(SentencePostEditRequest $request)
     {
         $sentence = new Sentence();
-        $sentence->fill(\Input::all());
-        if (!$sentence->createSentence()) {
+        $user_id = \Auth::front()->user()->id;
+        $sentence->fill(array_merge(
+            \Input::all(),
+            ['user_id' => $user_id]
+        ));
+        $sentence_group = $sentence->createSentence($user_id);
+        if (empty($sentence_group->id)) {
             return \Redirect::back()
                 ->with('error_message', trans('message.saving_failure'));
         }
-        return \Redirect::to('user/index')
+        return \Redirect::to("sentence/edit/{$sentence_group->id}")
             ->with('message',  trans('message.saving_success'));
     }
 
@@ -75,7 +94,11 @@ class SentenceController extends BaseController
         if (!$sentence) {
             $sentence = new Sentence();
         }
-        $sentence->fill(\Input::all());
+        $user_id = \Auth::front()->user()->id;
+        $sentence->fill(array_merge(
+            \Input::all(),
+            ['user_id' => $user_id]
+        ));
         if (!$sentence->save()) {
             return \Redirect::back()
                 ->with('error_message', trans('message.saving_failure'));

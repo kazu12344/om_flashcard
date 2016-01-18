@@ -27,6 +27,8 @@ abstract class Controller extends BaseController
      */
     protected $model_name = '';
 
+    protected $view_data = [];
+
     /**
      * constructor
      */
@@ -37,6 +39,7 @@ abstract class Controller extends BaseController
         $this->setActionName();
         $this->setControllerName();
         $this->setModelName();
+        $this->setViewData();
     }
 
     /**
@@ -71,4 +74,10 @@ abstract class Controller extends BaseController
                             studly_case($this->controller_name);
     }
 
+    private function setViewData()
+    {
+        $this->view_data['action_name'] = $this->action_name;
+        $this->view_data['controller_name'] = $this->controller_name;
+        $this->view_data['model_name'] = $this->model_name;
+    }
 }

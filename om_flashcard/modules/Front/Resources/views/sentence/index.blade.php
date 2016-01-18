@@ -1,39 +1,36 @@
-@extends('admin::common.layout')
-
+@extends('front::common.layout')
 @section('title')
-user index
+{{ trans('front::pagetitle.sentence.index') }}
 @stop
 
 @section('content')
-
-<div class="container" style="padding: 20px 0">
-    <h1>Admin List</h1>
-    @if (session('message'))
-    <div class="alert alert-success">
-    {{ session('message') }}
-    </div>
-    @endif
-    {!! Html::link("admin/admin_user/create", 'create', ['class' => 'btn btn-success']) !!}<br />
+<div class="container">
+    <h1>{{ trans('front::pagetitle.sentence.index') }}</h1>
+    @include('common.flash_message')
+    {!! Html::link("sentence/create", trans('common.create'), ['class' => 'btn btn-success']) !!}<br />
     <table class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th>name</th>
-        <th>email</th>
-        <th>created_at</th>
-        <th>updated_at</th>
+        <th>{{ trans('sentence.title') }}</th>
+        <th>{{ trans('language.languages') }}</th>
+        <th>{{ trans('common.created_at') }}</th>
+        <th>{{ trans('common.updated_at') }}</th>
     </tr>
     </thead>
-    @foreach($admin_users as $admin_user)
     <tbody>
-    <tr>
-        <td>{!! Html::link("admin/admin_user/edit/{$admin_user->id}", $admin_user->name) !!}</td>
-        <td>{{ $admin_user->email }}</td>
-        <td>{{ $admin_user->created_at }}</td>
-        <td>{{ $admin_user->updated_at }}</td>
-    </tr>
+        @foreach ($sentences as $sentence_group_id => $sentence_group)
+            <?php $td_class = (count($sentence_group) >= 2) ? 'table-same-language-group' : ''; ?>
+            @foreach ($sentence_group as $sentence)
+            <tr>
+                <td class="{{ $td_class }}">{!! Html::link("sentence/edit/{$sentence->sentence_group_id}", $sentence->title) !!}</td>
+                <td class="{{ $td_class }}">{{ $sentence->language }}</td>
+                <td class="{{ $td_class }}">{{ $sentence->created_at }}</td>
+                <td class="{{ $td_class }}">{{ $sentence->updated_at }}</td>
+            </tr>
+            @endforeach
+        @endforeach
     <tbody>
-    @endforeach　
     </table>
-    {!! $admin_users->render() !!}
+    {!! $sentence_groups->render() !!}
 </div>
 @stop

@@ -25,9 +25,9 @@ class SentencePostEditRequest extends \Illuminate\Foundation\Http\FormRequest {
         $sentence = new Sentence();
         $validation_rules = [];
         $action_name = OmUrlHelper::getActionName();
-        if ($action_name = 'postEdit') {
+        if ($action_name === 'postEdit') {
             $validation_rules = $sentence->getValidationRules('validation_rules_for_edit');
-        } elseif ($action_name = 'postCreate') {
+        } elseif ($action_name === 'postCreate') {
             $validation_rules = $sentence->getValidationRules('validation_rules_for_create');
         }
         return $validation_rules;

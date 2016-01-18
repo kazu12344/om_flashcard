@@ -20,7 +20,8 @@
     @if (Auth::front()->check())
         @include('front::common.navibar')
     @endif
-    @yield('content')
-
+    <div id="<?php echo !empty($controller_name) ? $controller_name . '-container' : ''; ?>">
+        @yield('content')
+    </div>
 </body>
 </html>

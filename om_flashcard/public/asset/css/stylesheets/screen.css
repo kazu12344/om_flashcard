@@ -6,3 +6,14 @@
 .languages-select-container {
   padding-bottom: 10px;
 }
+
+/* line 2, ../sass/sentences.scss */
+#sentence-container .table-same-language-group {
+  border-top: none !important;
+  border-right: 1px !important;
+  border-bottom: none !important;
+  border-left: 1px !important;
+  border-color: #ddd !important;
+  border-right-style: solid !important;
+  border-left-style: solid !important;
+}

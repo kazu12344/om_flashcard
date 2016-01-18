@@ -8,4 +8,5 @@
 return [
     'updated_at' => 'update date',
     'created_at' => 'create date',
+    'create' => 'Create',
 ];

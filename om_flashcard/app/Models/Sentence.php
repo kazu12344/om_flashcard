@@ -18,7 +18,7 @@ class Sentence extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['title', 'text', 'language_id', 'sentence_group_id'];
+    protected $fillable = ['user_id', 'title', 'text', 'language_id', 'sentence_group_id'];
 
     /**
      * soft delete setting
@@ -50,45 +50,92 @@ class Sentence extends BaseModel
         'sentence_group_id' => 'required',
     ];
 
-    /**
-     * Override
-     */
-//    public function save(array $options = [])
-//    {
-//        // controller name
-//        // create
-//        // sentence_group insert
-//        // sentence insert
-//        $sentence_group = new SentenceGroup();
-//        $sentence_group->save();
-//        $this->fill(['sentence_group_id' => $sentence_group->id]);
-//        parent::save();
-//
-//        // edit
-//        // sentence update
-//    }
-
-    public function createSentence()
+    public function language_user()
     {
-        return \DB::transaction(function(){
+        return $this->hasOne('App\Models\LanguageUser');
+    }
+
+    /**
+     * @param $user_id
+     * @return mixed
+     */
+    public function createSentence($user_id)
+    {
+        return \DB::transaction(function() use ($user_id){
             try {
                 $sentence_group = new SentenceGroup;
+                $sentence_group->user_id = $user_id;
                 $sentence_group->save();
-                $this->fill(['sentence_group_id' => $sentence_group->id]);
+                $this->fill([
+                    'sentence_group_id' => $sentence_group->id,
+                    'user_id' => $user_id,
+                ]);
                 parent::save();
+                return $sentence_group;
             } catch (\Exception $e) {
                 return false;
             }
         });
     }
 
+    /**
+     * Get data for sentence/index page
+     *
+     * @param $user_id
+     * @return array
+     */
+    public static function getSentencesDataForIndexView($user_id)
+    {
+        $data = [];
+        $sentence_group = new SentenceGroup();
+        $data['sentence_groups'] = $sentence_group::where('user_id', $user_id)
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+        $sentence_group_ids = [];
+        foreach ($data['sentence_groups'] as $sentence_group) {
+            $sentence_group_ids[] = $sentence_group->id;
+        }
+
+        $sentences = \DB::table('sentences')
+            ->select(
+                'sentences.sentence_group_id',
+                'sentences.title',
+                'languages.string as language',
+                'language_user.is_native_language',
+                'sentences.created_at',
+                'sentences.updated_at'
+            )
+            ->leftJoin('language_user', function($join){
+                $join->on('sentences.user_id', '=', 'language_user.user_id')
+                    ->on('sentences.language_id', '=', 'language_user.language_id');
+            })
+            ->leftJoin('languages', 'language_user.language_id', '=','languages.id')
+            ->where('sentences.user_id', $user_id)
+            ->whereIN('sentences.sentence_group_id', $sentence_group_ids)
+            ->orderBy('sentence_group_id', 'desc')
+            ->orderBy('language_user.is_native_language', 'desc')
+            ->orderBy('languages.code', 'asc')
+            ->get();
+        $data['sentences'] = [];
+        foreach ($sentences as $sentence) {
+            $data['sentences'][$sentence->sentence_group_id][] = $sentence;
+        }
+        return $data;
+    }
+
+    /**
+     * @param $sentence_group_id
+     * @param $language_ids
+     * @param array $options
+     * @return mixed
+     */
     public static function getSentenceData($sentence_group_id, $language_ids, $options = array())
     {
         if (!is_array($language_ids)) {
             $language_ids = [$language_ids];
         }
         $default = [
-            'result_type' => ''
+            'result_type' => '',
         ];
         $options = array_merge($default, $options);
         $sentence = Sentence::where('sentence_group_id', $sentence_group_id)

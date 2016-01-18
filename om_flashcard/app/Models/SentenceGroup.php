@@ -14,6 +14,13 @@ class SentenceGroup extends Model
     protected $table = 'sentence_groups';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['user_id'];
+
+    /**
      * soft delete setting
      *
      * @var bool

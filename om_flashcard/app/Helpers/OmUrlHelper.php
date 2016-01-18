@@ -43,4 +43,20 @@ class OmUrlHelper
         }
         return $route_action;
     }
+
+    public static function getControllerName($options = array())
+    {
+        $options = OmUtileHelper::getOptionArray(
+            ['only_controller' => true],
+            $options
+        );
+        $controller_name = str_replace(
+            'Controller',
+            '',
+            class_basename($this->route_action_arr[0])
+        );
+        $controller_name = snake_case($controller_name);
+        return $route_action;
+    }
+
 }
