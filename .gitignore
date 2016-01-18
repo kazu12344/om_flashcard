@@ -1,3 +1,4 @@
 .idea
 .vagrant
 om_flashcard_laravel4
+.sass-cache
